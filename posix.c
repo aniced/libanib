@@ -1,13 +1,4 @@
 /* posix.c */
-#include <unistd.h>
-#include <libgen.h>
-#include <dirent.h>
-#include <fnmatch.h>
-
-typedef struct {
-	DIR* dir;
-	char glob_base[FILENAME_MAX];
-} type_dir;
 
 void platform_init() {
 }
@@ -46,6 +37,7 @@ void dir_close(type_dir* dir) {
 }
 
 void set_color(int fg, int bg) {
+	// I expect your terminal to be an ordinary one.
 	char sequence[13] = "\e[0;";
 	char* p = sequence + 4;
 	if (fg > 0 && fg & 8) {

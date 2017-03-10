@@ -3,10 +3,10 @@
 #define _LIBANIB_EXPORT
 #include "anib.h"
 
-/* utilities */
+/* cross-platform utilities */
 #include "fncheck.c"
 
-/* platform */
+/* platform-specific implementations */
 #ifdef _WIN32
 	#include "win32.c"
 #else

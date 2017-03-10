@@ -5,6 +5,7 @@
 #else
 	#warning You are using an unsupported compiler.
 #endif
+
 #ifndef _LIBANIB_ANIB_H_INCLUDED
 	#define _LIBANIB_ANIB_H_INCLUDED
 
@@ -37,10 +38,29 @@
 		#undef X
 	#endif
 
+	/* platform-specific data structures */
+	#ifdef _WIN32
+		#include <windows.h>
+		typedef struct {
+			WIN32_FIND_DATA ffd;
+			bool first;
+			HANDLE handle;
+		} type_dir;
+	#else
+		#include <unistd.h>
+		#include <libgen.h>
+		#include <dirent.h>
+		#include <fnmatch.h>
+		typedef struct {
+			DIR* dir;
+			char glob_base[FILENAME_MAX];
+		} type_dir;
+	#endif
+
 	/* initialization */
 	API void platform_init(void);
 
-	/* dir */
+	/* directory operations */
 	API type_dir* dir_open(const char* glob);
 	API const char* dir_entry(type_dir* dir);
 	API void dir_close(type_dir* dir);

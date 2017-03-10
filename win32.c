@@ -1,11 +1,4 @@
 /* win32.c */
-#include <windows.h>
-
-typedef struct {
-	WIN32_FIND_DATA ffd;
-	bool first;
-	HANDLE handle;
-} type_dir;
 
 HANDLE handle_stdout;
 WORD old_text_attributes;
