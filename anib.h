@@ -32,10 +32,26 @@
 	#endif
 
 	#ifdef __cplusplus
-	extern "C" {
+		#define X extern "C" {
+		X // to deal with a few interesting editors
+		#undef X
 	#endif
+
+	/* initialization */
+	API void platform_init(void);
+
+	/* dir */
+	API type_dir* dir_open(const char* glob);
+	API const char* dir_entry(type_dir* dir);
+	API void dir_close(type_dir* dir);
+
+	/* console color */
+	API void set_color(int fg, int bg);
+	API void reset_color(void);
 
 	#ifdef __cplusplus
 	}
 	#endif
+
+	#undef API
 #endif
