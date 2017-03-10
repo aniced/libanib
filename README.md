@@ -20,3 +20,4 @@ Installation
 	```
 
 2. Move libanib.so or libanib.dll to somewhere in your $PATH (or %PATH%).
+3. Put anib.h where you put C headers.
