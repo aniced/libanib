@@ -36,7 +36,7 @@ void dir_close(type_dir* dir) {
 	free(dir);
 }
 
-void set_color(int fg, int bg) {
+void con_set_color(int fg, int bg) {
 	// I expect your terminal to be an ordinary one.
 	char sequence[13] = "\e[0;";
 	char* p = sequence + 4;
@@ -59,6 +59,6 @@ void set_color(int fg, int bg) {
 	fputs(sequence, stdout);
 }
 
-void reset_color() {
+void con_reset_color() {
 	printf("\e[0m");
 }

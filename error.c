@@ -7,9 +7,9 @@
 void error(const char* function, const char* format, ...) {
 	va_list ap;
 	va_start(ap, format);
-	set_color(15, 1);
+	con_set_color(15, 1);
 	fputs(" Error ", stdout);
-	reset_color();
+	con_reset_color();
 	fputs("\nMessage: ", stdout);
 	vprintf(format, ap);
 	putchar('\n');

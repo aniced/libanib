@@ -4,6 +4,7 @@
 #include "anib.h"
 
 /* cross-platform utilities */
+#include "error.c"
 #include "fncheck.c"
 
 /* platform-specific implementations */

@@ -47,7 +47,7 @@ int windows_console_color(int color) {
 	return color = color & 10 | (color & 1) << 2 | (color & 4) >> 2;
 }
 
-void set_color(int fg, int bg) {
+void con_set_color(int fg, int bg) {
 	if (fg < 0) {
 		fg = old_text_attributes & 0xf;
 	} else {
@@ -61,6 +61,6 @@ void set_color(int fg, int bg) {
 	SetConsoleTextAttribute(handle_stdout, bg << 4 | fg);
 }
 
-void reset_color() {
+void con_reset_color() {
 	SetConsoleTextAttribute(handle_stdout, old_text_attributes);
 }

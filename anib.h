@@ -70,9 +70,11 @@
 	API void dir_close(type_dir* dir);
 
 	/* console color */
-	API void set_color(int fg, int bg);
-	API void reset_color(void);
+	API void con_set_color(int fg, int bg);
+	API void con_reset_color(void);
 
+	/* miscellaneous */
+	API void error(const char* function, const char* format, ...);
 
 	#undef EXTERN
 	#undef API
