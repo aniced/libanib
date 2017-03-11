@@ -22,20 +22,24 @@
 		#include <stdbool.h>
 	#endif
 
-	#ifdef _WIN32
-		#ifdef _LIBANIB_EXPORT
-			#define API __declspec(dllexport)
-		#else
-			#define API __declspec(dllimport)
-		#endif
+	#ifdef _LIBANIB_EXPORT
+		#define EXTERN
 	#else
-		#define API
+		#ifdef __cplusplus
+			#define EXTERN extern "C"
+		#else
+			#define EXTERN extern
+		#endif
 	#endif
 
-	#ifdef __cplusplus
-		#define X extern "C" {
-		X // to deal with a few interesting editors
-		#undef X
+	#ifdef _WIN32
+		#ifdef _LIBANIB_EXPORT
+			#define API EXTERN __declspec(dllexport)
+		#else
+			#define API EXTERN __declspec(dllimport)
+		#endif
+	#else
+		#define API EXTERN
 	#endif
 
 	/* platform-specific data structures */
@@ -69,9 +73,7 @@
 	API void set_color(int fg, int bg);
 	API void reset_color(void);
 
-	#ifdef __cplusplus
-	}
-	#endif
 
+	#undef EXTERN
 	#undef API
 #endif
