@@ -1,5 +1,9 @@
 /* posix_con.c */
 
+void con_clear() {
+	printf("\e[2J");
+}
+
 void con_set_color(int fg, int bg) {
 	// I expect your terminal to be an ordinary one.
 	char sequence[13] = "\e[0;";
