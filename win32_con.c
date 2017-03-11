@@ -1,13 +1,18 @@
 /* win32_con.c */
 
-HANDLE handle_stdout;
+HANDLE handle_alternate;
+FILE* f_alternate;
 WORD old_text_attributes;
 
+HANDLE stdout_handle() {
+	return GetStdHandle(STD_OUTPUT_HANDLE);
+}
+
 void init_con() {
-	handle_stdout = GetStdHandle(STD_OUTPUT_HANDLE);
+	handle_alternate = NULL;
 	{
 		CONSOLE_SCREEN_BUFFER_INFO info;
-		GetConsoleScreenBufferInfo(handle_stdout, &info);
+		GetConsoleScreenBufferInfo(stdout_handle(), &info);
 		old_text_attributes = info.wAttributes;
 	}
 }
@@ -27,9 +32,34 @@ void con_set_color(int fg, int bg) {
 	} else {
 		bg = windows_console_color(bg);
 	}
-	SetConsoleTextAttribute(handle_stdout, bg << 4 | fg);
+	SetConsoleTextAttribute(stdout_handle(), bg << 4 | fg);
 }
 
 void con_reset_color() {
-	SetConsoleTextAttribute(handle_stdout, old_text_attributes);
+	SetConsoleTextAttribute(stdout_handle(), old_text_attributes);
+}
+
+void con_set_pos(int x, int y) {
+	COORD coord;
+	coord.X = x;
+	coord.Y = y;
+	SetConsoleCursorPosition(stdout_handle(), coord);
+}
+
+void con_alternate() {
+	handle_alternate = CreateConsoleScreenBuffer(
+		GENERIC_READ | GENERIC_WRITE,
+		FILE_SHARE_READ | FILE_SHARE_WRITE,
+		NULL,
+		CONSOLE_TEXTMODE_BUFFER,
+		NULL
+	);
+	SetConsoleActiveScreenBuffer(handle_alternate);
+	stdout = _fdopen(_open_osfhandle(handle_alternate, _O_TEXT), "w");
+}
+
+void con_alternate_exit() {
+	CloseHandle(handle_alternate);
+	SetConsoleActiveScreenBuffer(handle_stdout);
+	handle_active_console = handle_stdout;
 }

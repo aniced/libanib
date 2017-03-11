@@ -69,9 +69,12 @@
 	API const char* dir_entry(type_dir* dir);
 	API void dir_close(type_dir* dir);
 
-	/* console color */
+	/* console */
 	API void con_set_color(int fg, int bg);
 	API void con_reset_color(void);
+	API void con_set_pos(int x, int y);
+	API void con_alternate(void);
+	API void con_alternate_exit(void);
 
 	/* miscellaneous */
 	API void error(const char* function, const char* format, ...);
