@@ -18,6 +18,10 @@ int windows_console_color(int color) {
 
 /* public: */
 
+bool con_is_stdout_tty() {
+	return GetFileType(handle_stdout) == FILE_TYPE_CHAR;
+}
+
 void con_clear() {
 	COORD coord = {0, 0};
 	DWORD count = console_info.dwSize.X * console_info.dwSize.Y;

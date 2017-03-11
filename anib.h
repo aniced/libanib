@@ -70,6 +70,7 @@
 	API void dir_close(type_dir* dir);
 
 	/* console */
+	API bool con_is_stdout_tty(void);
 	API void con_clear(void);
 	API void con_set_color(int fg, int bg);
 	API void con_reset_color(void);

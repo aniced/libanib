@@ -1,5 +1,9 @@
 /* posix_con.c */
 
+bool con_is_stdout_tty() {
+	return isatty(fileno(stdout));
+}
+
 void con_clear() {
 	printf("\e[2J");
 }
